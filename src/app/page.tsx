@@ -1,8 +1,9 @@
 import BlogSearch, { BlogIndex } from "@/components/BlogSearch";
 import { filterBlogs } from "@/components/SearchHelper";
+import { DATA_URL } from "@/utils";
 
 export default async function Home({ searchParams, }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
-    const res = await fetch('http://localhost:8000/data.json', {
+    const res = await fetch(DATA_URL, {
         cache: 'force-cache'
     });
     const data: BlogIndex = await res.json();
