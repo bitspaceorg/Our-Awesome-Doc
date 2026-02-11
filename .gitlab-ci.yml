@@ -1,0 +1,29 @@
+stages:
+  - trigger
+
+trigger-deployment:
+  stage: trigger
+  script:
+    - |
+      if [ -z "$DOCS_DEPLOYMENT_TRIGGER_TOKEN" ] || [ -z "$DOCS_DEPLOYMENT_PROJECT_ID" ]; then
+        echo "Set DOCS_DEPLOYMENT_TRIGGER_TOKEN and DOCS_DEPLOYMENT_PROJECT_ID in this project's CI/CD variables."
+        exit 1
+      fi
+      resp=$(curl -sS -w "\n%{http_code}" -X POST \
+        -F token="$DOCS_DEPLOYMENT_TRIGGER_TOKEN" \
+        -F ref=main \
+        -F "variables[DOCS_REF]=$CI_COMMIT_REF_NAME" \
+        -F "variables[DOCS_SHA]=$CI_COMMIT_SHA" \
+        "https://gitlab.com/api/v4/projects/$DOCS_DEPLOYMENT_PROJECT_ID/trigger/pipeline")
+      code=$(echo "$resp" | tail -n1)
+      body=$(echo "$resp" | sed '$d')
+      echo "$body"
+      if [ "$code" != "201" ]; then
+        echo "Trigger failed (HTTP $code). Check token, project ID, and that the trigger exists in docs-deployment repo."
+        exit 1
+      fi
+      echo "Pipeline triggered successfully."
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - when: never
