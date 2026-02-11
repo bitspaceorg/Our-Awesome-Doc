@@ -2,6 +2,8 @@ import BlogSearch, { BlogIndex } from "@/components/BlogSearch";
 import { filterBlogs } from "@/components/SearchHelper";
 import { DATA_URL } from "@/utils";
 
+export const revalidate = 60
+
 export default async function Home({ searchParams, }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const res = await fetch(DATA_URL, {
         cache: 'force-cache'

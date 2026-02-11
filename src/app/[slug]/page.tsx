@@ -4,7 +4,6 @@ import { Blog, BlogIndex } from "@/components/BlogSearch";
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cache } from "react";
 
 
 const extractSlugs = (blogs: Blog[]): { slug: string, url: string }[] => {
@@ -14,6 +13,7 @@ const extractSlugs = (blogs: Blog[]): { slug: string, url: string }[] => {
   ]);
 };
 
+export const revalidate = 60
 
 export async function generateStaticParams() {
     const res = await fetch(DATA_URL, { cache: "force-cache" });
