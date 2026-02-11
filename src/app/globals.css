@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*@font-face {
+  font-family: 'foss';
+  src: url('/fossserif/FOSSSERIF-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}*/
+
+@theme {
+  --font-jet: "JetBrains Mono", monospace; 
+  /*--font-fserif: "foss", serif; */
+
+  --color-accent-color: var(--accent-color); 
+  --color-foreground-color: var(--foreground-color);
+  --color-tinted-accent-color: var(--tinted-accent-color);
+}
+
+.gridline {
+  background-image:
+    linear-gradient(to right, #ccc 1px, transparent 1px),
+    linear-gradient(to bottom, #ccc 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
