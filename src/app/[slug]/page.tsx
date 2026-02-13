@@ -13,17 +13,7 @@ const extractSlugs = (blogs: Blog[]): { slug: string, url: string }[] => {
   ]);
 };
 
-export const revalidate = 60
-
-export async function generateStaticParams() {
-    const res = await fetch(DATA_URL, { cache: "force-cache" });
-    if (!res.ok) throw new Error("Failed to fetch blogs");
-
-    const data: BlogIndex = await res.json();
-    const slugs = extractSlugs(data.blogs);
-
-    return slugs;
-}
+export const dynamic = 'force-dynamic'
 
 function truncateToWords(text: string, maxWords = 7) {
     const words = text.trim().split(/\s+/);
@@ -35,7 +25,7 @@ function truncateToWords(text: string, maxWords = 7) {
 export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const res = await fetch(DATA_URL, { cache: "force-cache" });
+  const res = await fetch(DATA_URL, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch");
 
   const data: BlogIndex = await res.json();

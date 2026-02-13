@@ -2,11 +2,11 @@ import BlogSearch, { BlogIndex } from "@/components/BlogSearch";
 import { filterBlogs } from "@/components/SearchHelper";
 import { DATA_URL } from "@/utils";
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export default async function Home({ searchParams, }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const res = await fetch(DATA_URL, {
-        cache: 'force-cache'
+        cache: 'no-store'
     });
     const data: BlogIndex = await res.json();
 
