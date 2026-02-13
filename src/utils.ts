@@ -17,3 +17,7 @@ export const FOREGROUND_COLOR       = getEnv('FOREGROUND_COLOR');
 export const TINTED_ACCENT_COLOR    = getEnv('TINTED_ACCENT_COLOR');
 export const DATA_URL               = getEnv('DATA_URL');
 
+export const SITE_TITLE             = getEnv('SITE_TITLE');
+export const SITE_DESCRIPTION       = getEnv('SITE_DESCRIPTION');
+export const SITE_FAVICON           = getEnv('SITE_FAVICON');
+
