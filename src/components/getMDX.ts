@@ -21,7 +21,7 @@ export async function getRemoteMDX(url: string): Promise<{
   content: React.ReactNode;
   frontmatter: Frontmatter;
 }> {
-  const res = await fetch(url, { cache: "force-cache" });
+  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch MDX");
 
   const source = await res.text();
