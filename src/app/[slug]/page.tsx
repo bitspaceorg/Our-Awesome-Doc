@@ -36,7 +36,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
 
   const { content, frontmatter } = await getRemoteMDX(url);
   return (
-    <main className="flex flex-col items-center font-jet bg-[#fbffeb]  ">
+    <main className="flex flex-col items-center font-jet bg-tinted-accent-color">
       <header className="w-full h-[500px] bg-accent-color p-5 flex flex-col justify-between cursor-default">
         <div className="flex w-full justify-between">
           <h1 className="font-bold text-right ">{frontmatter.date}</h1>
