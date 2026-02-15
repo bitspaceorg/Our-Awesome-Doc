@@ -28,7 +28,8 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
   const res = await fetch(DATA_URL, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch");
 
-  const data: BlogIndex = await res.json();
+  const json = await res.json();
+  const data: BlogIndex = { blogs: json.blogs ?? json.docs, filters: json.filters };
   const slugsUrlMap = extractSlugs(data.blogs);
 
   const url = slugsUrlMap.find((val) => (val.slug == slug))?.url;

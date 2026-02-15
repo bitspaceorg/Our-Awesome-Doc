@@ -8,7 +8,8 @@ export default async function Home({ searchParams, }: { searchParams: Promise<{ 
     const res = await fetch(DATA_URL, {
         cache: 'no-store'
     });
-    const data: BlogIndex = await res.json();
+    const json = await res.json();
+    const data: BlogIndex = { blogs: json.blogs ?? json.docs, filters: json.filters };
 
     const activeFilters = Object.fromEntries(
         Object.entries((await searchParams)).filter(([, v]) => v !== undefined)
