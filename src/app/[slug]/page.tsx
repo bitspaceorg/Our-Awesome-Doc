@@ -6,11 +6,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 
-const extractSlugs = (blogs: Blog[]): { slug: string, url: string }[] => {
-  return blogs.flatMap(blog => [
-    { slug: blog.slug, url: blog.url },
-    ...(blog.children?.map(child => ({ slug: child.slug, url: child.url })) ?? [])
-  ]);
+const extractSlugs = (items: Blog[]): { slug: string, url: string }[] => {
+  const result: { slug: string, url: string }[] = [];
+  const walk = (list: Blog[]) => {
+    for (const item of list) {
+      result.push({ slug: item.slug, url: item.url });
+      if (item.children) walk(item.children as Blog[]);
+    }
+  };
+  walk(items);
+  return result;
 };
 
 export const dynamic = 'force-dynamic'
